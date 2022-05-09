@@ -1,82 +1,72 @@
 package com.example.sharedpreferences;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    //    Initialize variables
     ImageView imageView;
-
-    private SharedPreferences shp;
-    private EditText editSave;
-    private final String save_key = "save_key";
+    Button btOpen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
 
-        Button btnCamera = (Button) findViewById(R.id.btnCamera);
-
-        imageView = (ImageView) findViewById(R.id.imageView);
-
-        btnCamera.setOnClickListener(new View.OnClickListener() {
+//      Assign variables
+        imageView = findViewById(R.id.imageView);
+        btOpen = findViewById(R.id.btnCamera);
 
 
-            public void onClick(View view) {
+//        Request for camera permission
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                            Manifest.permission.CAMERA
+                    },
+                    100);
+        }
+        btOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                Open camera
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
+                startActivityForResult(intent, 100);
             }
         });
+
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode ==100){
+//            Get capture image
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+//            Set capture image to ImageView
+            imageView.setImageBitmap(captureImage);
+        }
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);
     }
 
-    private void init()
-    {
-        shp = getSharedPreferences("dataRow",MODE_PRIVATE);
-        editSave = findViewById(R.id.editText);
-        editSave.setText(shp.getString(save_key,"Text"));
-    }
-
-    public void onClickDelete(View view) {
-
-        SharedPreferences.Editor edit = shp.edit();
-        edit.clear();
-        edit.commit();
-        Toast.makeText(MainActivity.this, "Text Deleted", Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void onClickGet(View view) {
-        editSave.setText(shp.getString(save_key,"empty"));
-        Toast.makeText(MainActivity.this, "Text Loaded", Toast.LENGTH_SHORT).show();
-    }
-
-    public void oClickSave(View view) {
-        SharedPreferences.Editor edit = shp.edit();
-        edit.putString(save_key, editSave.getText().toString());
-        edit.commit();
-        Toast.makeText(MainActivity.this,"Text Saved",Toast.LENGTH_SHORT).show();
-
+    public void openVoice(View view) {
+        Intent intent = new Intent(this, VoiceActivity2.class);
+        startActivity(intent);
     }
 }
+
