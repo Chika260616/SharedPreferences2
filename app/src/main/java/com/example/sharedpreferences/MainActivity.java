@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     //    Initialize variables
     ImageView imageView;
     Button btOpen;
-
+    Button btn_record;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_record = (Button) findViewById(R.id.btn_record);
+        btn_record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Activity2.class);
+                startActivity(intent);
+            }
+
+        });
+
 
     }
 
@@ -62,11 +72,6 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageBitmap(captureImage);
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public void openVoice(View view) {
-        Intent intent = new Intent(this, VoiceActivity2.class);
-        startActivity(intent);
     }
 }
 

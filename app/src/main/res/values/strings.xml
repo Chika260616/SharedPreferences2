@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Shared preferences</string>
+    <string name="btnplay">btnPlay</string>
+    <string name="btnstartrecord">btnStartRecord</string>
+    <string name="btnstop">btnStop</string>
+    <string name="btnstoprecord">btnStopRecord</string>
+    <string name="take_a_photo">Take a photo</string>
 </resources>
