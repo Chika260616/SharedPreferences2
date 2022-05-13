@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button btOpen;
     Button btn_record;
     Button btn_video;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 //      Assign variables
         imageView = findViewById(R.id.imageView);
         btOpen = findViewById(R.id.btnCamera);
-        btn_record = (Button) findViewById(R.id.btn_record);
 
 
 //        Request for camera permission
@@ -45,13 +45,12 @@ public class MainActivity extends AppCompatActivity {
         btOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Open camera
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
             }
         });
 
+        btn_record = (Button) findViewById(R.id.btn_record);
         btn_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
