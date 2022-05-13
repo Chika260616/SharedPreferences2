@@ -8,11 +8,9 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-
     <uses-permission android:name="android.permission.STORAGE" />
 
     <application
@@ -22,6 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SharedPreferences">
+        <activity
+            android:name=".Activity3"
+            android:exported="false" />
         <activity
             android:name=".Activity2"
             android:exported="false" />

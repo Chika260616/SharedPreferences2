@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     Button btOpen;
     Button btn_record;
+    Button btn_video;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 //      Assign variables
         imageView = findViewById(R.id.imageView);
         btOpen = findViewById(R.id.btnCamera);
+        btn_record = (Button) findViewById(R.id.btn_record);
 
 
 //        Request for camera permission
@@ -50,11 +52,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_record = (Button) findViewById(R.id.btn_record);
         btn_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Activity2.class);
+                startActivity(intent);
+            }
+
+        });
+
+        btn_video = (Button) findViewById(R.id.btn_video);
+        btn_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Activity3.class);
                 startActivity(intent);
             }
 
